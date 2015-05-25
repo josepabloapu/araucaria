@@ -3,6 +3,7 @@ Modules:
 		1)UPCOUNTER_POSEDGE
 		2)FFD_POSEDGE
 		3)FULL_ADDER
+		4)DUAL_READ_RAM
 
 //------------------------------------------------*/
 
@@ -68,3 +69,33 @@ endmodule
 
 //------------------------------------------------//
 
+module RAM_DUAL_READ_PORT # ( parameter DATA_WIDTH= 8, parameter ADDR_WIDTH=10, parameter MEM_SIZE=10 )
+(
+	input wire			Clock,
+	input wire			iWriteEnable,
+	input wire[ADDR_WIDTH-1:0]	iReadAddress0,
+	input wire[ADDR_WIDTH-1:0]	iReadAddress1,
+	input wire[ADDR_WIDTH-1:0]	iWriteAddress,
+	input wire[DATA_WIDTH-1:0]	iDataIn,
+	output reg [DATA_WIDTH-1:0] 	oDataOut0,
+	output reg [DATA_WIDTH-1:0] 	oDataOut1
+
+);
+
+reg [DATA_WIDTH-1:0] Ram [MEM_SIZE:0];		
+
+
+
+always @(posedge Clock) 
+begin 
+	
+		if (iWriteEnable) 
+			Ram[iWriteAddress] <= iDataIn; 
+			
+			oDataOut0 <=(( iWriteAddress == iReadAddress0 ) && iWriteEnable ) ? iDataIn : Ram[iReadAddress0 ] ;
+			oDataOut1 <= (( iWriteAddress == iReadAddress1 ) && iWriteEnable ) ? iDataIn : Ram[iReadAddress1 ] ;
+
+end 
+endmodule
+
+//------------------------------------------------//
