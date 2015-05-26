@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="331.07419"
-     inkscape:cy="380.42904"
+     inkscape:cx="347.76248"
+     inkscape:cy="646.69831"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -60,20 +60,6 @@
      id="layer1"
      transform="translate(0,27.637779)">
     <rect
-       style="opacity:1;fill:#008080;fill-opacity:1;stroke:#f58b21;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4172-5"
-       width="140"
-       height="80"
-       x="-200"
-       y="812.36224" />
-    <rect
-       style="opacity:1;fill:#008080;fill-opacity:1;stroke:#f58b21;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4172"
-       width="140"
-       height="80"
-       x="-200"
-       y="132.36223" />
-    <rect
        style="opacity:1;fill:#008080;fill-opacity:1;stroke:#f58b21;stroke-width:1.0527848;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4164"
        width="509.9472"
@@ -90,11 +76,25 @@
        d="m 120,852.36222 -240,0"
        id="path4162"
        inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#008080;fill-opacity:1;stroke:#f58b21;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4172-5"
+       width="140"
+       height="80"
+       x="-200"
+       y="812.36224" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 120,172.36222 -240,0"
        id="path4164"
        inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#008080;fill-opacity:1;stroke:#f58b21;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4172"
+       width="140"
+       height="80"
+       x="-200"
+       y="132.36223" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 80,832.36222 40,20 -40,20"
@@ -327,7 +327,7 @@
            x="520"
            y="40" /></flowRegion><flowPara
          id="flowPara5006">Cuadrados azules van blancos con blur:25%.</flowPara><flowPara
-         id="flowPara5032"> </flowPara><flowPara
+         id="flowPara5032" /><flowPara
          id="flowPara5034" /></flowRoot>    <flowRoot
        transform="translate(243.65685,869.63548)"
        xml:space="preserve"
