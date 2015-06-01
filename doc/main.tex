@@ -109,7 +109,45 @@ En este documento se describe detalladamente el diseño, la implementación de u
 
 \subsubsection{Definición de la máquina}
 
-\subsection{Codificador}
+\pagebreak
+\subsection{Decodificador}
+
+\begin{itemize}
+\item \textbf{Entradas:}\\
+instr
+\item \textbf{Salidas:}\\
+selA, selB, selM1, selM2, inm, memDir, branchDir, jmpDir, jmpTaken, wrEnable, opCode
+\item \textbf{Asignaciónes:} \\
+inm = instr[0:7] \\
+memDir = jmpDir = instr[0:9] \\
+branchDir = instr[0:5] \\
+opCode = instr[10:15]
+\end{itemize}
+
+
+\subsubsection{0-LDA}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\multicolumn{6}{c}{Output: 1st clock Cycle} \\ \hline
+selA & selB & selM1 & selM2 & jmpTaken & wrEnable \\ \hline
+11   & 00   & XX    & XX    & 0        & 0             
+\end{tabular}
+\end{table}
+
+\subsubsection{1-LDB}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\multicolumn{6}{c}{Output: 1st clock Cycle} \\ \hline
+selA & selB & selM1 & selM2 & jmpTaken & wrEnable \\ \hline
+00   & 11   & XX    & XX    & 0        & 0             
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Memoria de datos}
 
