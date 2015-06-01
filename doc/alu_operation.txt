@@ -1,0 +1,101 @@
+Operaciones de transferencia de datos:
+
+Se definen las entradas de la alu como: in1 (10 bits), in2 (10 bits), opcode (6 bits) y las salidas como: rWrData, rWrDir y wReDir.
+
+
+I) Operaciones de Tranferencia de Datos
+
+	1) # -> acomulador	(LDCA,LDCB)
+	escribe una constante en algun registro de uso general, la alu no necesita realizar ninguna operacion.
+
+	rWrData	= 8'b0
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	2) memoria -> acomulador	(LDA, LDB)
+	escribe a algun registro de uso general lo que este en la posicion de memoria indicada en la entrada in1.
+
+	rWrData	= 8'b0
+	rWrDir	= 10'b0
+	rReDir	= in1
+
+	*adiccionalmente es necesario indicarle alos acomuladores que deben guardar el dato que viene de la memoria y no del decodificador.
+
+	3 acomulador -> memoria		(STA,STB)
+	escribe en la posicion de memoria lo que haya en el registro de uso general. Para el acomulador A la posicion de memoria viene de la entrada in1 y el valor en el acomulador de in2, para el acomulador B es alrevez.
+
+	STA
+	rWrData	= LSB(8,in2)
+	rWrDir	= in1
+	rReDir	= 10'b0
+
+	STB
+	rWrData	= LSB(8,in1)
+	rWrDir	= in2
+	rReDir	= 10'b0
+
+II) Operaciones Aritmeticas
+
+	4) suma
+	suma un registro de uso general con el otro o una cons
+tante y lo guarda en el registro que indique el opcode
+
+	ADDA / ADDB / ADDCA / ADDCB
+	rWrData	= LSB(8,in1) + LSB(8,in2)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	*lo que diferencia a estas instrucciones los las entradas, estas son especificadas por el decodificador de instrucciones.
+			
+	5) resta
+
+	SUBA / SUBCA
+	rWrData	= LSB(8,in1) - LSB(8,in2)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	SUBB /SUBCB
+	rWrData	= LSB(8,in2) - LSB(8,in1)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+III) Operaciones logicas
+
+	6) and
+
+	ANDA / ANDCA
+	rWrData	= LSB(8,in1) and LSB(8,in2)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	ANDB /ANDCB
+	rWrData	= LSB(8,in2) and LSB(8,in1)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	7) or
+
+	ORA
+	rWrData	= LSB(8,in1) or LSB(8,in2)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+	ORB
+	rWrData	= LSB(8,in2) or LSB(8,in1)
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+IV) Operaciones de control de flujo
+	La alu no tiene que hacer nada en las operaciones de salto.
+
+	8) salto incondicional (JMP)
+	9) salto condicional (...)
+
+V) Otros
+
+	10) NOP
+	rWrData	= 8'b0
+	rWrDir	= 10'b0
+	rReDir	= 10'b0
+
+
