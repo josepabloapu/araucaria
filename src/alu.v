@@ -13,7 +13,7 @@ module alu
 	input wire [7:0]	in2,
 
 	//Salidas
-	output wire [7:0]  	out
+	output reg [7:0]  	out
 );
 
 
@@ -44,6 +44,7 @@ begin
 	begin
 		out	<= 	in1;		
 	end
+
 	`STB:
 	begin
 		out	<= 	in2;		
@@ -92,38 +93,38 @@ begin
 
 	`ANDA:
 	begin
-		out	<= 	in1 && in2;	
+		out	<= 	in1 & in2;	
 	end
 	`ANDB:
 	begin
-		out	<= 	in2 && in1;
+		out	<= 	in2 & in1;
 	end
 
 	`ANDCA:
 	begin
-		out	<= 	in1 && in2;	
+		out	<= 	in1 & in2;	
 	end
 	`ANDCB:
 	begin
-		out	<= 	in2 && in1;
+		out	<= 	in2 & in1;
 	end
 
 	`ORA:
 	begin
-		out	<= 	in1 || in2;	
+		out	<= 	in1 | in2;	
 	end
 	`ORB:
 	begin
-		out	<= 	in2 || in1;
+		out	<= 	in2 | in1;
 	end
 
 	`ORCA:
 	begin
-		out	<= 	in1 || in2;	
+		out	<= 	in1 | in2;	
 	end
 	`ORCB:
 	begin
-		out	<= 	in2 || in1;
+		out	<= 	in2 | in1;
 	end
 
 	`ASLA:

@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.64 (w)1999-2014 BSI
+[*] Wed Jun  3 16:00:21 2015
+[*]
+[dumpfile] "/home/matorres/Copy/DCS/UCR/ECD2/Tarea45/araucaria/src/sim1.vcd"
+[dumpfile_mtime] "Wed Jun  3 15:59:30 2015"
+[dumpfile_size] 2883
+[savefile] "/home/matorres/Copy/DCS/UCR/ECD2/Tarea45/araucaria/src/alu_sim.gtkw"
+[timestart] 0
+[size] 1366 719
+[pos] -1 -1
+*-15.228293 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[sst_width] 201
+[signals_width] 102
+[sst_expanded] 1
+[sst_vpaned_height] 197
+@28
+testbench.Clock
+testbench.Reset
+@22
+[color] 3
+testbench.wOp[5:0]
+@24
+testbench.wIn1[7:0]
+testbench.wIn2[7:0]
+@420
+[color] 7
+testbench.wAlu[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

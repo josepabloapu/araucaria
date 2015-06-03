@@ -1,0 +1,320 @@
+$date
+	Wed Jun  3 09:59:30 2015
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module FFD_POSEDGE_SYNCRONOUS_RESET $end
+$var wire 1 ! Clock $end
+$var wire 8 " D [7:0] $end
+$var wire 1 # Enable $end
+$var wire 1 $ Reset $end
+$var reg 8 % Q [7:0] $end
+$upscope $end
+$scope module FULL_ADDER $end
+$var wire 1 & Ci $end
+$var wire 8 ' Co [7:0] $end
+$var wire 8 ( In1 [7:0] $end
+$var wire 8 ) In2 [7:0] $end
+$var wire 8 * Out [7:0] $end
+$upscope $end
+$scope module RAM_SINGLE_READ_PORT $end
+$var wire 1 + Clock $end
+$var wire 8 , iDataIn [7:0] $end
+$var wire 10 - iReadAddress [9:0] $end
+$var wire 10 . iWriteAddress [9:0] $end
+$var wire 1 / iWriteEnable $end
+$var reg 8 0 oDataOut [7:0] $end
+$upscope $end
+$scope module UPCOUNTER_POSEDGE $end
+$var wire 1 1 Clock $end
+$var wire 1 2 Enable $end
+$var wire 16 3 Initial [15:0] $end
+$var wire 1 4 Reset $end
+$var reg 16 5 Q [15:0] $end
+$upscope $end
+$scope module testbench $end
+$var wire 8 6 wAlu [7:0] $end
+$var reg 1 7 Clock $end
+$var reg 1 8 Reset $end
+$var reg 8 9 wIn1 [7:0] $end
+$var reg 8 : wIn2 [7:0] $end
+$var reg 6 ; wOp [5:0] $end
+$scope module a0 $end
+$var wire 1 < clk $end
+$var wire 8 = in1 [7:0] $end
+$var wire 8 > in2 [7:0] $end
+$var wire 6 ? opcode [5:0] $end
+$var wire 1 @ reset $end
+$var reg 8 A out [7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx A
+x@
+bx ?
+bx >
+bx =
+0<
+bx ;
+bx :
+bx 9
+x8
+07
+bx 6
+bx 5
+z4
+bz 3
+z2
+z1
+bx 0
+z/
+bz .
+bz -
+bz ,
+z+
+bx *
+bz )
+bz (
+bx '
+z&
+bx %
+z$
+z#
+bz "
+z!
+$end
+#5000
+b0 A
+b0 6
+18
+1@
+17
+1<
+#10000
+08
+0@
+07
+0<
+#15000
+b11010 A
+b11010 6
+b101 :
+b101 >
+b10101 9
+b10101 =
+b110 ;
+b110 ?
+17
+1<
+#20000
+07
+0<
+#25000
+b11001 A
+b11001 6
+17
+1<
+b100 :
+b100 >
+b111 ;
+b111 ?
+#30000
+07
+0<
+#35000
+b11010 A
+b11010 6
+17
+1<
+b101 :
+b101 >
+b1000 ;
+b1000 ?
+#40000
+07
+0<
+#45000
+b11001 A
+b11001 6
+17
+1<
+b100 :
+b100 >
+b1001 ;
+b1001 ?
+#50000
+07
+0<
+#55000
+b10000 A
+b10000 6
+17
+1<
+b101 :
+b101 >
+b1010 ;
+b1010 ?
+#60000
+07
+0<
+#65000
+b11101111 A
+b11101111 6
+17
+1<
+b100 :
+b100 >
+b1011 ;
+b1011 ?
+#70000
+07
+0<
+#75000
+b10000 A
+b10000 6
+17
+1<
+b101 :
+b101 >
+b1100 ;
+b1100 ?
+#80000
+07
+0<
+#85000
+b11101111 A
+b11101111 6
+17
+1<
+b100 :
+b100 >
+b1101 ;
+b1101 ?
+#90000
+07
+0<
+#95000
+b101 A
+b101 6
+17
+1<
+b101 :
+b101 >
+b1101 9
+b1101 =
+b1110 ;
+b1110 ?
+#100000
+07
+0<
+#105000
+b100 A
+b100 6
+17
+1<
+b100 :
+b100 >
+b1111 ;
+b1111 ?
+#110000
+07
+0<
+#115000
+b101 A
+b101 6
+17
+1<
+b101 :
+b101 >
+b10000 ;
+b10000 ?
+#120000
+07
+0<
+#125000
+b100 A
+b100 6
+17
+1<
+b100 :
+b100 >
+b10001 ;
+b10001 ?
+#130000
+07
+0<
+#135000
+b1101 A
+b1101 6
+17
+1<
+b101 :
+b101 >
+b10010 ;
+b10010 ?
+#140000
+07
+0<
+#145000
+17
+1<
+b100 :
+b100 >
+b10011 ;
+b10011 ?
+#150000
+07
+0<
+#155000
+17
+1<
+b101 :
+b101 >
+b10100 ;
+b10100 ?
+#160000
+07
+0<
+#165000
+17
+1<
+b100 :
+b100 >
+b10101 ;
+b10101 ?
+#170000
+07
+0<
+#175000
+b1000 A
+b1000 6
+17
+1<
+b101 :
+b101 >
+b100 9
+b100 =
+b10110 ;
+b10110 ?
+#180000
+07
+0<
+#185000
+b10 A
+b10 6
+17
+1<
+b10111 ;
+b10111 ?
+#190000
+07
+0<
+#195000
+17
+1<

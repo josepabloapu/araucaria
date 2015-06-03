@@ -5,7 +5,7 @@
 `define LDCA   	6'h02
 `define LDCB   	6'h03
 `define STA   	6'h04
-`define STA   	6'h05
+`define STB   	6'h05
 
 `define ADDA   	6'h06
 `define ADDB   	6'h07
