@@ -14,8 +14,8 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="decode.svg">
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="decoder_box.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -37,7 +37,7 @@
      showborder="false"
      inkscape:window-width="1337"
      inkscape:window-height="727"
-     inkscape:window-x="271"
+     inkscape:window-x="263"
      inkscape:window-y="100"
      inkscape:window-maximized="0">
     <inkscape:grid
@@ -52,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -128,26 +128,26 @@
          y="387.65518">memDir [10b]</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:sans-serif"
        x="438.32031"
-       y="557.08875"
+       y="518.75281"
        id="text4162"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4164"
          x="438.32031"
-         y="557.08875">wrEnable [1b]</tspan></text>
+         y="518.75281">wrEnable [1b]</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:sans-serif"
        x="437.79297"
-       y="599.08875"
+       y="562.75281"
        id="text4166"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4168"
          x="437.79297"
-         y="599.08875">opCode [6b]</tspan></text>
+         y="562.75281">opCode [6b]</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -171,12 +171,12 @@
          x="16.230469"
          y="187.08876">instr [16b]</tspan></text>
     <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.23374867;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:1.18352497;stroke-opacity:1"
        id="rect4178"
-       width="179.26625"
-       height="499.26627"
-       x="240.61687"
-       y="132.47906" />
+       width="179.31647"
+       height="459.31647"
+       x="240.59175"
+       y="132.45395" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -188,16 +188,5 @@
          id="tspan4186"
          x="437.59766"
          y="471.79581">jmpDir [10b]</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="438.72266"
-       y="512.75281"
-       id="text4188"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4190"
-         x="438.72266"
-         y="512.75281">jmpTaken [1b]</tspan></text>
   </g>
 </svg>

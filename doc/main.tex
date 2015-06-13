@@ -107,7 +107,37 @@ En este documento se describe detalladamente el diseño, la implementación de u
 
 \subsubsection{Salidas}
 
+\pagebreak
 \subsubsection{Definición de la máquina}
+
+\subsection{Multiplexores}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cc|cc}
+\multicolumn{4}{c}{Sistema de control} \\ \hline
+selM1 & selM2 & ln1 	& ln2  \\ \hline
+0     & 0     & wA 	& imdt \\
+0     & 1     & wA	& wB   \\
+1     & 0     & imdt	& imdt \\
+1     & 1     & imdt	& wB   \\
+\end{tabular}
+\end{table}
+
+\subsection{Acumulador}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Sistema de control} \\ \hline
+selX   & wX    \\ \hline
+00     & wX    \\
+01     & inmdt \\
+10     & alu   \\
+11     & mem   \\
+\end{tabular}
+\end{table}
+
 
 \pagebreak
 \subsection{Decodificador}
@@ -124,30 +154,57 @@ branchDir = instr[0:5] \\
 opCode = instr[10:15]
 \end{itemize}
 
-
-\subsubsection{0-LDA}
-
 \begin{table}[h]
 \centering
-\begin{tabular}{cccccc}
-\multicolumn{6}{c}{Output: 1st clock Cycle} \\ \hline
-selA & selB & selM1 & selM2 & jmpTaken & wrEnable \\ \hline
-11   & 00   & XX    & XX    & 0        & 0             
+\begin{tabular}{cc|ccccc}
+\multicolumn{7}{c}{Salida según la intrucción} \\ \hline
+Codificación & Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
+000 000 		 & LDA 		  	& 11 	& 00    & X     & X     & 0 \\
+000 001 		 & LDB  		& 00 	& 11    & X     & X     & 0 \\           
+000 010 		 & LDCA 		& 01 	& 00    & X     & X     & 0 \\            
+000 011 		 & LDCB 		& 00 	& 01    & X     & X     & 0 \\           
+000 100 		 & STA  	 	& 00 	& 00    & 0     & X     & 1 \\            
+000 101 		 & STB  		& 00 	& 00    & X     & 0     & 1 \\            
+000 110 		 & ADDA (1C) 	& 00 	& 00    & 0     & 1     & 0 \\
+000 110 		 & ADDA (2C)	& 10 	& 00    & X     & X     & 0 \\
+000 111 		 & ADDB (1C)	& 00 	& 00    & 0     & 1     & 0 \\
+000 111 		 & ADDB (2C)	& 00 	& 10    & X     & X     & 0 \\
+001 000 		 & ADDCA (1C)	& 00 	& 00    & 0     & 0     & 0 \\
+001 000 		 & ADDCA (2C) 	& 10 	& 00    & X     & X     & 0 \\
+001 001 		 & ADDCB (1C) 	& 00 	& 00    & 1     & 1     & 0 \\
+001 001 		 & ADDCB (2C) 	& 00 	& 10    & X     & X     & 0 \\
+001 010 		 & SUBA (1C)  	& 00 	& 00    & 0     & 1     & 0 \\
+001 010 		 & SUBA (2C)  	& 10 	& 00    & X     & X     & 0 \\
+001 011 		 & SUBB (1C)	& 00 	& 00    & 0     & 1     & 0 \\
+001 011 		 & SUBB (2C)	& 00 	& 10    & X     & X     & 0 \\
+001 100 		 & SUBCA (1C)	& 00 	& 00    & 0     & 0     & 0 \\
+001 100 		 & SUBCA (2C) 	& 10 	& 00    & X     & X     & 0 \\
+001 101 		 & SUBCB (1C) 	& 00 	& 00    & 1     & 1     & 0 \\
+001 101 		 & SUBCB (2C) 	& 00 	& 10    & X     & X     & 0 \\
+001 110 		 & ANDA (1C) 	& 00 	& 00    & 0     & 1     & 0 \\
+001 110 		 & ANDA (2C)	& 10 	& 00    & X     & X     & 0 \\
+001 111 		 & ANDB (1C)	& 00 	& 00    & 0     & 1     & 0 \\
+001 111 		 & ANDB (2C)	& 00 	& 10    & X     & X     & 0 \\
+010 000 		 & ANDCA (1C)	& 00 	& 00    & 0     & 0     & 0 \\
+010 000 		 & ANDCA (2C) 	& 10 	& 00    & X     & X     & 0 \\
+010 001 		 & ANDCB (1C) 	& 00 	& 00    & 1     & 1     & 0 \\
+010 001 		 & ANDCB (2C) 	& 00 	& 10    & X     & X     & 0 \\
+010 010 		 & ORA (1C)   	& 00 	& 00    & 0     & 1     & 0 \\
+010 010 		 & ORA (2C)	    & 10 	& 00    & X     & X     & 0 \\
+010 011 		 & ORB (1C)	    & 00 	& 00    & 0     & 1     & 0 \\
+010 011 		 & ORB (2C)	    & 00 	& 10    & X     & X     & 0 \\
+010 100 		 & ORCA (1C)  	& 00 	& 00    & 0     & 0     & 0 \\
+010 100 		 & ORCA (2C)   	& 10 	& 00    & X     & X     & 0 \\
+010 101 		 & ORCB (1C)   	& 00 	& 00    & 1     & 1     & 0 \\
+010 101 		 & ORCB (2C)   	& 00 	& 10    & X     & X     & 0 \\
+010 110 		 & ASLA (1C)   	& 00 	& 00    & 0     & X     & 0 \\
+010 110 		 & ASLA (2C)   	& 00 	& 00    & 0     & X     & 0 \\
+010 110 		 & ASRA (1C)   	& 00 	& 00    & 0     & X     & 0 \\
+010 110 		 & ASRA (2C)   	& 00 	& 00    & 0     & X     & 0 \\
+
+
 \end{tabular}
 \end{table}
-
-\subsubsection{1-LDB}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{cccccc}
-\multicolumn{6}{c}{Output: 1st clock Cycle} \\ \hline
-selA & selB & selM1 & selM2 & jmpTaken & wrEnable \\ \hline
-00   & 11   & XX    & XX    & 0        & 0             
-\end{tabular}
-\end{table}
-
-
 
 \subsection{Memoria de datos}
 
