@@ -1,7 +1,11 @@
 
 
-ML18-Discusiones iniciales
-ML25-Discusion de arquitectura
+MyL18-Discusiones iniciales
+MyL25-Discusion de arquitectura I
+
+JnM3-Discusion de arquitectura II
+Jn
+
 
 
 Entrega: 
