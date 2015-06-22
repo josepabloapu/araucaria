@@ -8,6 +8,8 @@ module decodec
 
 	//Entradas de datos
 	input wire [15:0] 	in,
+	input wire [2:0]	flagA,	//{z,c,n}
+	input wire [2:0]	flagB,	//{z,c,n}
 
 	//Salidas de control
 	output reg [1:0]  	selA
@@ -15,6 +17,8 @@ module decodec
 	output reg  		selM1
 	output reg  		selM2
 	output reg  		wrEnable
+	output reg  		jmpEnable
+	output reg  		branchEnable
 
 	//Salidas de datos
 	output reg [7:0]  	inm
@@ -40,7 +44,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;			
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;			
 	end
 	`LDB:
 	begin
@@ -48,7 +54,9 @@ begin
 		selB		<= 	2'b11;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;			
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;			
 	end
 
 	`LDCA:
@@ -57,7 +65,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;			
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;			
 	end
 	`LDCB:
 	begin
@@ -65,7 +75,9 @@ begin
 		selB		<= 	2'b01;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;			
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;			
 	end
 
 	`STA:
@@ -74,7 +86,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b1;		
+		wrEnable	<= 	1'b1;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;		
 	end
 
 	`STB:
@@ -83,7 +97,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b1;		
+		wrEnable	<= 	1'b1;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;		
 	end
 	//-------------------------------------
 
@@ -94,7 +110,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ADDB:
 	begin
@@ -103,6 +121,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`ADDCA:
@@ -111,7 +131,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ADDCB:
 	begin
@@ -120,6 +142,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`SUBA:
@@ -128,7 +152,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`SUBB:
 	begin
@@ -137,6 +163,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`SUBCA:
@@ -145,7 +173,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`SUBCB:
 	begin
@@ -154,6 +184,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 	//-------------------------------------
 
@@ -165,7 +197,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ANDB:
 	begin
@@ -174,6 +208,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`ANDCA:
@@ -182,7 +218,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ANDCB:
 	begin
@@ -191,6 +229,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`ORA:
@@ -199,7 +239,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ORB:
 	begin
@@ -208,6 +250,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`ORCA:
@@ -216,7 +260,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ORCB:
 	begin
@@ -225,6 +271,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 
 	`ASLA:
@@ -233,7 +281,9 @@ begin
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end
 	`ASRA:
 	begin
@@ -242,6 +292,8 @@ begin
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;
 	end
 	//-------------------------------------
 
@@ -249,58 +301,292 @@ begin
 
 	`JMP:
 	begin
-		//----	
+		selA		<= 	2'b00;
+		selB		<= 	2'b00;
+		selM1		<= 	1'b0;
+		selM2		<= 	1'b0;
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b1;
+		branchEnable <= 1'b0;
 	end
 	`BAEQ:
 	begin
-		//----	
+		if (flagA[2] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BANE:
 	begin
-		//----	
+		if (flagA[2] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BACS:
 	begin
-		//----	
+		if (flagA[1] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BACC:
 	begin
-		//----	
+		if (flagA[1] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BAMI:
 	begin
-		//----	
+		if (flagA[0] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BAPL:
 	begin
-		//----	
+		if (flagA[0] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 
 	//-------------------------------------
 
 	`BBEQ:
 	begin
-		//----	
+		if (flagB[2] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BBNE:
 	begin
-		//----	
+		if (flagB[2] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BBCS:
 	begin
-		//----	
+		if (flagB[1] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BBCC:
 	begin
-		//----	
+		if (flagB[1] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BBMI:
 	begin
-		//----	
+		if (flagB[0] == 1)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	`BBPL:
 	begin
-		//----	
+		if (flagB[0] == 0)
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b1;	
+    	end
+  		else
+    	begin
+      		selA		<= 	2'b00;
+			selB		<= 	2'b00;
+			selM1		<= 	1'b0;
+			selM2		<= 	1'b0;
+			wrEnable	<= 	1'b0;
+			jmpEnable	 <= 1'b0;
+			branchEnable <= 1'b0;	
+      	end	
 	end
 	//-------------------------------------
 
