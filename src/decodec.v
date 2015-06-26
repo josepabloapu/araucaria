@@ -12,27 +12,27 @@ module decodec
 	input wire [2:0]	flagB,	//{z,c,n}
 
 	//Salidas de control
-	output reg [1:0]  	selA
-	output reg [1:0]  	selB
-	output reg  		selM1
-	output reg  		selM2
-	output reg  		wrEnable
-	output reg  		jmpEnable
-	output reg  		branchEnable
+	output reg [1:0]  	selA,
+	output reg [1:0]  	selB,
+	output reg  		selM1,
+	output reg  		selM2,
+	output reg  		wrEnable,
+	output reg  		jmpEnable,
+	output reg  		branchEnable,
 
 	//Salidas de datos
-	output reg [7:0]  	inm
-	output reg [9:0]  	memDir
-	output reg [5:0]  	branchDir
-	output reg [9:0]  	jmpDir
-	output reg [5:0]  	opCode
+	output reg [7:0]  	inm,
+	output reg [9:0]  	memDir,
+	output reg [5:0]  	branchDir,
+	output reg [9:0]  	jmpDir,
+	output reg [5:0]  	opCode,
 );
 
-assign inm = {in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]}
-assign memDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]}
-assign branchDir = {in[5],in[4],in[3],in[2],in[1],in[0]}
-assign jmpDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]}
-assign opCode = {in[15],in[14],in[13],in[12],in[11],in[10]}
+assign inm = {in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
+assign memDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
+assign branchDir = {in[5],in[4],in[3],in[2],in[1],in[0]};
+assign jmpDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
+assign opCode = {in[15],in[14],in[13],in[12],in[11],in[10]};
 
 always @ ( posedge clk )
 begin
