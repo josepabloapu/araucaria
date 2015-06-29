@@ -92,3 +92,42 @@ end
 endmodule
 
 //------------------------------------------------//
+
+module RPG # (parameter DATA_WIDTH= 8)
+(
+	input wire 			Clock,
+	input wire[1:0]			Select,
+	input wire[DATA_WIDTH-1:0]	iInm,
+	input wire[DATA_WIDTH:0]	iAlu,			//Esta entrada incluye el acarreo
+	input wire[DATA_WIDTH-1:0]	iMem,
+	output reg[DATA_WIDTH-1:0]	oRPG,
+	output reg 			oCarry
+);
+
+always @(posedge Clock)
+begin
+	case(Select)
+		0: 
+		begin
+			oRPG 	<= iInm;
+			oCarry 	<= 1'b0;
+		end
+		1: 
+		begin
+			oRPG 	<= iAlu[7:0];
+			oCarry 	<= iAlu[8];
+		end
+
+		2: 
+		begin
+			oRPG 	<= iMem;
+			oCarry 	<= 1'b0;
+		end
+		3: 
+		begin
+			oRPG 	<= oRPG;
+			oCarry 	<= oCarry;
+		end
+	endcase
+end
+endmodule
