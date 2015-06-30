@@ -11,7 +11,7 @@ module alu
 	input wire [7:0]	in2,
 
 	//Salidas
-	output reg [8:0]  	out		//El octavo bit corresponde al acarreo
+	output reg [8:0]  	out		//El noveno bit corresponde al acarreo
 );
 
 
