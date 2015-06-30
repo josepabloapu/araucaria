@@ -93,7 +93,7 @@ endmodule
 
 //------------------------------------------------//
 
-module RPG # (parameter DATA_WIDTH= 8)
+module RPG # (parameter DATA_WIDTH= 8)			//Acomulador
 (
 	input wire 			Clock,
 	input wire[1:0]			Select,
@@ -101,7 +101,7 @@ module RPG # (parameter DATA_WIDTH= 8)
 	input wire[DATA_WIDTH:0]	iAlu,			//Esta entrada incluye el acarreo
 	input wire[DATA_WIDTH-1:0]	iMem,
 	output reg[DATA_WIDTH-1:0]	oRPG,
-	output reg 			oCarry
+	output reg[2:0]			oFlags
 );
 
 always @(posedge Clock)
@@ -110,23 +110,23 @@ begin
 		0: 
 		begin
 			oRPG 	<= iInm;
-			oCarry 	<= 1'b0;
+			oFlags 	<= {~&iInm,1'b0,iInm[DATA_WIDTH-1]};
 		end
 		1: 
 		begin
-			oRPG 	<= iAlu[7:0];
-			oCarry 	<= iAlu[8];
+			oRPG 	<= iAlu[DATA_WIDTH-1:0];
+			oFlags 	<= {~&iAlu[DATA_WIDTH:0],iAlu[DATA_WIDTH],iAlu[DATA_WIDTH-1]};
 		end
 
 		2: 
 		begin
 			oRPG 	<= iMem;
-			oCarry 	<= 1'b0;
+			oFlags 	<= {~&iMem,1'b0,iMem[DATA_WIDTH-1]};
 		end
 		3: 
 		begin
 			oRPG 	<= oRPG;
-			oCarry 	<= oCarry;
+			oFlags 	<= oFlags;
 		end
 	endcase
 end
