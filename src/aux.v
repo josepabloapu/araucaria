@@ -131,3 +131,25 @@ begin
 	endcase
 end
 endmodule
+
+module MUX # (parameter DATA_WIDTH= 8)
+(
+	input wire 			Select,
+	input wire[DATA_WIDTH-1:0]	In1,		
+	input wire[DATA_WIDTH-1:0]	In2,
+	output wire[DATA_WIDTH-1:0]	Out		 
+);
+always
+begin
+	case(Select)
+		0: 
+		begin
+			Out 	<= In1;
+		end
+		1: 
+		begin
+			Out 	<= In2;
+		end
+	endcase
+end
+endmodule
