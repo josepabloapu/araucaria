@@ -21,11 +21,11 @@ module decodec
 	output reg  		branchEnable,
 
 	//Salidas de datos
-	output reg [7:0]  	inm,
-	output reg [9:0]  	memDir,
-	output reg [5:0]  	branchDir,
-	output reg [9:0]  	jmpDir,
-	output reg [5:0]  	opCode,
+	output wire [7:0]  	inm,
+	output wire [9:0]  	memDir,
+	output wire [5:0]  	branchDir,
+	output wire [9:0]  	jmpDir,
+	output wire [5:0]  	opCode
 );
 
 assign inm = {in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
@@ -36,14 +36,14 @@ assign opCode = {in[15],in[14],in[13],in[12],in[11],in[10]};
 
 always @ ( posedge clk )
 begin
-	case (opcode)
+	case (opCode)
 	//Oparaciones de transferencia de datos
 	`LDA:
 	begin
 		selA		<= 	2'b11;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;			
@@ -53,7 +53,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b11;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;			
@@ -63,7 +63,7 @@ begin
 	begin
 		selA		<= 	2'b01;
 		selB		<= 	2'b00;
-		selM1		<= 	1'b0;
+		selM1		<= 	1'b1;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
@@ -73,7 +73,7 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b01;
-		selM1		<= 	1'b0;
+		selM1		<= 	1'b1;
 		selM2		<= 	1'b0;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
@@ -95,8 +95,8 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
-		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM1		<= 	1'b1;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b1;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;		
@@ -109,7 +109,7 @@ begin
 		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;	
@@ -119,7 +119,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -139,8 +139,8 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
-		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM1		<= 	1'b1;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -151,7 +151,7 @@ begin
 		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;	
@@ -161,7 +161,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -181,8 +181,8 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
-		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM1		<= 	1'b1;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -196,7 +196,7 @@ begin
 		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;	
@@ -206,7 +206,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -226,8 +226,8 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
-		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM1		<= 	1'b1;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -238,7 +238,7 @@ begin
 		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;	
@@ -248,7 +248,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -268,8 +268,8 @@ begin
 	begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b10;
-		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM1		<= 	1'b1;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -280,7 +280,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;	
@@ -290,7 +290,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b0;
 		branchEnable <= 1'b0;
@@ -304,7 +304,7 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
+		selM2		<= 	1'b1;
 		wrEnable	<= 	1'b0;
 		jmpEnable	 <= 1'b1;
 		branchEnable <= 1'b0;
@@ -316,7 +316,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -326,7 +326,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -339,7 +339,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -349,7 +349,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -362,7 +362,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -372,7 +372,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -385,7 +385,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -395,7 +395,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -408,7 +408,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -418,7 +418,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -431,7 +431,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -441,7 +441,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -457,7 +457,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -467,7 +467,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -480,7 +480,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -490,7 +490,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -503,7 +503,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -513,7 +513,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -526,7 +526,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -549,7 +549,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -559,7 +559,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -572,7 +572,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b1;	
@@ -582,7 +582,7 @@ begin
       		selA		<= 	2'b00;
 			selB		<= 	2'b00;
 			selM1		<= 	1'b0;
-			selM2		<= 	1'b0;
+			selM2		<= 	1'b1;
 			wrEnable	<= 	1'b0;
 			jmpEnable	 <= 1'b0;
 			branchEnable <= 1'b0;	
@@ -596,8 +596,10 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;			
+		selM2		<= 	1'b1;
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;			
 	end
 	//-------------------------------------
 	default:
@@ -605,8 +607,10 @@ begin
 		selA		<= 	2'b00;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
-		selM2		<= 	1'b0;
-		wrEnable	<= 	1'b0;	
+		selM2		<= 	1'b1;
+		wrEnable	<= 	1'b0;
+		jmpEnable	 <= 1'b0;
+		branchEnable <= 1'b0;	
 	end	
 	endcase	
 end
