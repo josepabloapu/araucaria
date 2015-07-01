@@ -30,11 +30,11 @@ begin
 
 	`LDCA:
 	begin
-		out	<= 	9'b0;			
+		out	<= 	{1'b0,in1};			
 	end
 	`LDCB:
 	begin
-		out	<= 	9'b0;			
+		out	<= 	{1'b0,in2};		
 	end
 
 
@@ -91,38 +91,38 @@ begin
 
 	`ANDA:
 	begin
-		out	<= 	in1 & in2;	
+		out	<= 	{1'b0,in1 & in2};	
 	end
 	`ANDB:
 	begin
-		out	<= 	in2 & in1;
+		out	<= 	{1'b0,in2 & in1};
 	end
 
 	`ANDCA:
 	begin
-		out	<= 	in1 & in2;	
+		out	<= 	{1'b0,in1 & in2};	
 	end
 	`ANDCB:
 	begin
-		out	<= 	in2 & in1;
+		out	<= 	{1'b0,in2 & in1};
 	end
 
 	`ORA:
 	begin
-		out	<= 	in1 | in2;	
+		out	<= 	{1'b0,in1 | in2;}	
 	end
 	`ORB:
 	begin
-		out	<= 	in2 | in1;
+		out	<= 	{1'b0,in2 | in1};
 	end
 
 	`ORCA:
 	begin
-		out	<= 	in1 | in2;	
+		out	<= 	{1'b0,in1 | in2};	
 	end
 	`ORCB:
 	begin
-		out	<= 	in2 | in1;
+		out	<= 	{1'b0,in2 | in1};
 	end
 
 	`ASLA:

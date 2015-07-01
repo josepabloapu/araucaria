@@ -13,11 +13,11 @@ reg [2:0] 	flagb;
 reg [5:0] 	wOp;
 
 //Outputs
-wire [7:0] 	inm;
-wire [9:0] 	memdir;
-wire [5:0] 	branchdir;
-wire [9:0] 	jmpdir;
-wire [5:0] 	opcode;
+wire [7:0] inm;
+wire [9:0] memdir;
+wire [5:0] branchdir;
+wire [9:0] jmpdir;
+wire [5:0] opcode;
 
 wire [1:0]  sela;
 wire [1:0]  selb;
@@ -87,7 +87,6 @@ begin
 	#10	data = 16'b010001010000000;	flaga = 3'b000;		flagb = 3'b000;
 	#10 data = 16'b010010010000000;	flaga = 3'b000;		flagb = 3'b000;	
 	#10	data = 16'b010011010000000;	flaga = 3'b000;		flagb = 3'b000;
-
 	#10
 	$finish;
 end
