@@ -3,8 +3,6 @@
 module decodec
 (
 	//Entradas de control
-	input wire 		clk,
-	input wire		reset,
 
 	//Entradas de datos
 	input wire [15:0] 	in,
@@ -28,7 +26,7 @@ module decodec
 	output wire [5:0]  	opCode
 );
 
-assign inm 			= in[7:0];
+assign inm 		= in[7:0];
 assign memDir 		= in[9:0];
 assign branchDir 	= in[5:0];
 assign jmpDir 		= in[9:0];

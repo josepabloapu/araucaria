@@ -111,10 +111,7 @@ FFD_POSEDGE_SYNCRONOUS_RESET # ( 16 ) IFID0
 
 decodec ID0 
 (
-	.clk(Clock),
-	.reset(Reset),
-
-	.in(wInstID),
+	.in(wInstIF),
 
 	.selA(wSelAID),
 	.selB(wSelBID),
@@ -223,7 +220,7 @@ MUX # (8) MX2
 );
 
 
-alu A0 
+alu ALU0 
 (
 	.opcode(wOpCodeEX),
 	.in1(wIn1),
