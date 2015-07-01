@@ -1,5 +1,5 @@
-`include "def.v"
-`include "aux.v"
+//`include "def.v"
+//`include "aux.v"
 
 module alu
 (
@@ -109,7 +109,7 @@ begin
 
 	`ORA:
 	begin
-		out	<= 	{1'b0,in1 | in2;}	
+		out	<= 	{1'b0,in1 | in2};	
 	end
 	`ORB:
 	begin
