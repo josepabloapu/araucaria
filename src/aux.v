@@ -92,3 +92,64 @@ end
 endmodule
 
 //------------------------------------------------//
+
+module RPG # (parameter DATA_WIDTH= 8)			//Acomulador
+(
+	input wire 			Clock,
+	input wire[1:0]			Select,
+	input wire[DATA_WIDTH-1:0]	iInm,
+	input wire[DATA_WIDTH:0]	iAlu,			//Esta entrada incluye el acarreo
+	input wire[DATA_WIDTH-1:0]	iMem,
+	output reg[DATA_WIDTH-1:0]	oRPG,
+	output reg[2:0]			oFlags
+);
+
+always @(posedge Clock)
+begin
+	case(Select)
+		0: 
+		begin
+			oRPG 	<= iInm;
+			oFlags 	<= {~&iInm,1'b0,iInm[DATA_WIDTH-1]};
+		end
+		1: 
+		begin
+			oRPG 	<= iAlu[DATA_WIDTH-1:0];
+			oFlags 	<= {~&iAlu[DATA_WIDTH:0],iAlu[DATA_WIDTH],iAlu[DATA_WIDTH-1]};
+		end
+
+		2: 
+		begin
+			oRPG 	<= iMem;
+			oFlags 	<= {~&iMem,1'b0,iMem[DATA_WIDTH-1]};
+		end
+		3: 
+		begin
+			oRPG 	<= oRPG;
+			oFlags 	<= oFlags;
+		end
+	endcase
+end
+endmodule
+
+module MUX # (parameter DATA_WIDTH= 8)
+(
+	input wire 			Select,
+	input wire[DATA_WIDTH-1:0]	In1,		
+	input wire[DATA_WIDTH-1:0]	In2,
+	output wire[DATA_WIDTH-1:0]	Out		 
+);
+always
+begin
+	case(Select)
+		0: 
+		begin
+			Out 	<= In1;
+		end
+		1: 
+		begin
+			Out 	<= In2;
+		end
+	endcase
+end
+endmodule

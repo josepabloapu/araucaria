@@ -6,11 +6,11 @@ module waka;
 
 //Inputs
 
-reg [15:0] data;
-reg [2:0] flaga;
-reg [2:0] flagb;
+reg [15:0] 	data;
+reg [2:0] 	flaga;
+reg [2:0] 	flagb;
 
-reg [5:0] wOp;
+reg [5:0] 	wOp;
 
 //Outputs
 wire [7:0] inm;
@@ -66,25 +66,26 @@ begin
 	Clock = 0;
 	#05 	Reset=1; #05 Reset=0;
 
-	#5	data = 16'b00000000000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00000100000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00001000000000; 	flaga = 3'b000; 	flagb = 3'b000;	
-	#10	data = 16'b00001100000000; 	flaga = 3'b000; 	flagb = 3'b000;
-	#10	data = 16'b00010000000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00010100000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00011000000000; 	flaga = 3'b000; 	flagb = 3'b000;	
-	#10	data = 16'b00011100000000; 	flaga = 3'b000; 	flagb = 3'b000;
-	#10	data = 16'b00100000000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00100100000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00101000000000; 	flaga = 3'b000; 	flagb = 3'b000;	
-	#10	data = 16'b00101100000000; 	flaga = 3'b000; 	flagb = 3'b000;
-	#10	data = 16'b00110000000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00110100000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b00111000000000;	flaga = 3'b000; 	flagb = 3'b000;	
-	#10	data = 16'b00111100000000;	flaga = 3'b000; 	flagb = 3'b000;
-	#10 data = 16'b01000000000000;	flaga = 3'b000; 	flagb = 3'b000;	
-	#10	data = 16'b01000100000000;	flaga = 3'b000; 	flagb = 3'b000;
-
+	#5	data = 16'b000000010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000001010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000010010000000; flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b000011010000000; flaga = 3'b000;		flagb = 3'b000;
+	#10	data = 16'b000100010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000101010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000110010000000; flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b000111010000000; flaga = 3'b000;		flagb = 3'b000;
+	#10	data = 16'b000000010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000001010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000010010000000; flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b000011010000000; flaga = 3'b000;		flagb = 3'b000;
+	#10	data = 16'b000100010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000101010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b000110010000000;	flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b000111010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b001000010000000;	flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b001001010000000;	flaga = 3'b000;		flagb = 3'b000;
+	#10 data = 16'b001010010000000;	flaga = 3'b000;		flagb = 3'b000;	
+	#10	data = 16'b001011010000000;	flaga = 3'b000;		flagb = 3'b000;
 	#10
 	$finish;
 end

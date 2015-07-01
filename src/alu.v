@@ -4,8 +4,6 @@
 module alu
 (
 	//Entradas de control
-	input wire 		clk,
-	input wire		reset,
 	input wire [5:0]	opcode,
 
 	//Entradas de datos
@@ -13,41 +11,41 @@ module alu
 	input wire [7:0]	in2,
 
 	//Salidas
-	output reg [7:0]  	out
+	output reg [8:0]  	out		//El noveno bit corresponde al acarreo
 );
 
 
-always @ ( posedge clk )
+always @ ( * )
 begin
 	case (opcode)
 	//Oparaciones de transferencia de datos
 	`LDA:
 	begin
-		out	<= 	8'b0;			
+		out	<= 	9'b0;			
 	end
 	`LDB:
 	begin
-		out	<= 	8'b0;			
+		out	<= 	9'b0;			
 	end
 
 	`LDCA:
 	begin
-		out	<= 	8'b0;			
+		out	<= 	{1'b0,in1};			
 	end
 	`LDCB:
 	begin
-		out	<= 	8'b0;			
+		out	<= 	{1'b0,in2};		
 	end
 
 
 	`STA:
 	begin
-		out	<= 	in1;		
+		out	<= 	{1'b0,in1};		
 	end
 
 	`STB:
 	begin
-		out	<= 	in2;		
+		out	<= 	{1'b0,in2};		
 	end
 	//-------------------------------------
 
@@ -93,38 +91,38 @@ begin
 
 	`ANDA:
 	begin
-		out	<= 	in1 & in2;	
+		out	<= 	{1'b0,in1 & in2};	
 	end
 	`ANDB:
 	begin
-		out	<= 	in2 & in1;
+		out	<= 	{1'b0,in2 & in1};
 	end
 
 	`ANDCA:
 	begin
-		out	<= 	in1 & in2;	
+		out	<= 	{1'b0,in1 & in2};	
 	end
 	`ANDCB:
 	begin
-		out	<= 	in2 & in1;
+		out	<= 	{1'b0,in2 & in1};
 	end
 
 	`ORA:
 	begin
-		out	<= 	in1 | in2;	
+		out	<= 	{1'b0,in1 | in2;}	
 	end
 	`ORB:
 	begin
-		out	<= 	in2 | in1;
+		out	<= 	{1'b0,in2 | in1};
 	end
 
 	`ORCA:
 	begin
-		out	<= 	in1 | in2;	
+		out	<= 	{1'b0,in1 | in2};	
 	end
 	`ORCB:
 	begin
-		out	<= 	in2 | in1;
+		out	<= 	{1'b0,in2 | in1};
 	end
 
 	`ASLA:
@@ -146,12 +144,12 @@ begin
 	//Otras
 	`NOP:
 	begin
-		out	<= 	8'b0;			
+		out	<= 	9'b0;			
 	end
 	//-------------------------------------
 	default:
 	begin
-		out	<= 	8'b0;	
+		out	<= 	9'b0;	
 	end	
 	endcase	
 end
