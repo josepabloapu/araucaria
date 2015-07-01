@@ -28,13 +28,13 @@ module decodec
 	output wire [5:0]  	opCode
 );
 
-assign inm = {in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
-assign memDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
-assign branchDir = {in[5],in[4],in[3],in[2],in[1],in[0]};
-assign jmpDir = {in[9],in[8],in[7],in[6],in[5],in[4],in[3],in[2],in[1],in[0]};
-assign opCode = {in[15],in[14],in[13],in[12],in[11],in[10]};
+assign inm 			= in[7:0];
+assign memDir 		= in[9:0];
+assign branchDir 	= in[5:0];
+assign jmpDir 		= in[9:0];
+assign opCode 		= in[15:10];
 
-always @ ( posedge clk )
+always @ ( * )
 begin
 	case (opCode)
 	//Oparaciones de transferencia de datos
