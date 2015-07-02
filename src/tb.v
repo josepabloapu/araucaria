@@ -1,7 +1,5 @@
 `timescale 1ns / 1ps
 `include "def.v"
-`include "alu.v"
-`include "decodec.v"
 `include "aux.v"
 `include "rom.v"
 `include "uP.v"
@@ -13,7 +11,6 @@ module testbench;
 //Outputs
 
 reg Clock;
-reg Cocas;
 reg Reset;
 
 always 
@@ -33,7 +30,7 @@ initial
 begin
 	Clock = 0;
 	#05 	Reset=1; #05 Reset=0;
-	#400
+	#500
 	$finish;
 end
 
