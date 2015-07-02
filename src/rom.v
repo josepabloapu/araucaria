@@ -15,5 +15,4 @@ begin
     i=Ip;
 	Instr = data[Ip];
 end
-	
 endmodule 

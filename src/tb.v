@@ -30,7 +30,7 @@ initial
 begin
 	Clock = 0;
 	#05 	Reset=1; #05 Reset=0;
-	#500
+	#1000
 	$finish;
 end
 
