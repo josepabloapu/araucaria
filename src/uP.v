@@ -1,111 +1,89 @@
-//~ `include "def.v"
-//~ `include "alu.v"
-//~ `include "decodec.v"
-//~ `include "aux.v"
-//~ `include "rom.v"
-
 module uP
 (
-input wire clk,
-input wire Reset
+		input wire clk,
+		input wire Reset
 );
 
-//Wires
+//Declaracion de las lineas que unen los modulos separadas por etapa.
+
 		//IF
-		wire [9:0] 	wPC;
-		wire [9:0] 	wPC_New;
-		wire [9:0] 	wPC_Next;
+		wire [9:0] 	wPC, wPC_New, wPC_Next;
 		wire 		wPC_Sel;
 		wire [15:0] wInstIF;
-		wire [9:0]  wPC_BranchDir;
 
 		//ID
 		wire [15:0] wInstID;
-		wire [1:0] 	wSelAID;
-		wire [1:0]	wSelBID;
-		wire wSelM1ID, wSelM2ID;
-		wire wWrEnableID;
-		wire wJmpEnableID;
-		wire wBranchEnableID;
-		wire [7:0] wInmID;
-		wire [9:0] wMemDirID;
-		wire [5:0] wBranchDirID;
-		wire [9:0] wJmpDirID;
-		wire [5:0] wOpCodeID;
-		wire [2:0] wFlagA;
-		wire [2:0] wFlagB;
-		
-		wire [7:0] wIn1;
-		wire [7:0] wIn2;
+		wire [1:0] 	wSelAID, wSelBID;
+		wire 		wSelM1ID, wSelM2ID, wWrEnableID, wJmpEnableID, wBranchEnableID;
+		wire [7:0] 	wInmID;
+		wire [9:0] 	wMemDirID;
+		wire [6:0] 	wBranchDirID;
+		wire [9:0] 	wBranchDirID_Def;
+		wire [9:0] 	wJmpDirID;
+		wire [5:0] 	wOpCodeID;
+		wire [2:0] 	wFlagA, wFlagB;
+		wire [7:0] 	wIn1, wIn2;
 		
 		//EX
-		wire [5:0] wOpCodeEX;
-		wire wSelM1EX, wSelM2EX;
-		wire [7:0] wInmEX; 
-		wire [9:0] wMemDirEX;
-		wire [5:0] wBranchDirEX;	
-		wire [9:0] wJmpDirEX;	
-		wire [1:0] wSelAEX;
-		wire [1:0] wSelBEX;
-		wire [7:0] wA;
-		wire [7:0] wB;
-		wire wWrEnableEX;
-		wire wJmpEnableEX;
-		wire wBranchEnableEX;
-		wire [8:0] wAluEX;
+		wire [5:0] 	wOpCodeEX;
+		wire 		wSelM1EX, wSelM2EX;
+		wire [7:0] 	wInmEX; 
+		wire [9:0] 	wMemDirEX;
+		wire [1:0] 	wSelAEX, wSelBEX;
+		wire [7:0] 	wA, wB;
+		wire 		wWrEnableEX;
+		wire [8:0] 	wAluEX;
 		
-
 		//MEM
-		
 		wire [8:0] wAluME;
 		wire [9:0] wMemDirME;
-		wire [1:0] 	wSelAME;
-		wire [1:0]	wSelBME;
+		wire [1:0] 	wSelAME, wSelBME;
 		
 		//WB
-		
 		wire [8:0] wAluWB;
 		wire [7:0] wMemWB;
-		wire [1:0] wSelAWB;
-		wire [1:0] wSelBWB;		
+		wire [1:0] wSelAWB, wSelBWB;		
 		
 
-//IF
-FFD # ( 10 ) PC 
+//-----IF-----//
+//PC: Contador de programa, le indica a la memoria de instruccciones que instrucción leer.
+FFD # ( 10 ) PC 			
 (
 	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-		//~ .D(wPC_New),
-	.D(wPC_Next),
+	.D(wPC_New),
 	.Q(wPC)
 );
 
+//PC_Next: Se incrementa PC para leer la proxima instrucción en el siguiente ciclo.
 assign  wPC_Next = wPC +1;
 
-//~ MUX # (10) MX0
-//~ (
-	//~ .Select(wPC_Sel),
-	//~ .In1(wPC_Next),
-	//~ .In2(wPC_BranchDir),
-	//~ .Out(wPC_New)
-//~ );
+//Selector de proxima direccion: Cambia dependiendo si se ejecuta un JMP, BRANCH o ninguna instruccion de salto.
+MUX4 # (10) MX0				
+(
+	.Select({wJmpEnableID,wBranchEnableID}),
+	.In1(wPC_Next),
+	.In2(wBranchDirID_Def),
+	.In3(wJmpDirID),
+	.In4(10'b0),	
+	.Out(wPC_New)
+);
 
 
-//ID
-
-ROM	ROM0
+//-----ID-----//
+//Memoria de instrucciones, leer la instruccion en la posicion de memoria wPC.
+ROM	IM0
 (
 	.Clock(clk),
 	.Ip(wPC),
 	.Instr(wInstIF)
 );
 
-
-decodec ID0 
+//Decodificador de instrucciones: Genera las señales de control para las siguientes etapas
+DECODEC ID0 
 (
 	.in(wInstIF),
-
 	.selA(wSelAID),
 	.selB(wSelBID),
 	.selM1(wSelM1ID),
@@ -113,19 +91,21 @@ decodec ID0
 	.wrEnable(wWrEnableID),
 	.jmpEnable(wJmpEnableID),
 	.branchEnable(wBranchEnableID),
-
 	.inm(wInmID),
 	.memDir(wMemDirID),
 	.branchDir(wBranchDirID),
 	.jmpDir(wJmpDirID),
 	.opCode(wOpCodeID),
-
 	.flagA(wFlagA),
 	.flagB(wFlagB)
 );
 
-//EX
+//Extension de signo y suma para los saltos relativos.
+assign	wBranchDirID_Def = {wBranchDirID[6],wBranchDirID[6],wBranchDirID[6],wBranchDirID[6:0]} + wPC;
 
+
+//-----EX-----//
+//Registro de proposito general 1 / acomulador A.
 RPG # (8) A
 (
 	.Clock(clk),
@@ -137,6 +117,7 @@ RPG # (8) A
 	.oFlags(wFlagA)
 );
 
+//Registro de proposito general 2 / acomulador B.
 RPG # (8) B
 (
 	.Clock(clk),
@@ -148,7 +129,8 @@ RPG # (8) B
 	.oFlags(wFlagB)
 );
 
-FFD # ( 8 ) IDEX0	//Valor inmediato
+//Valor inmediato
+FFD # ( 8 ) INM	
 (
 	.Clock(clk),
 	.Reset(Reset),
@@ -157,53 +139,17 @@ FFD # ( 8 ) IDEX0	//Valor inmediato
 	.Q(wInmEX)
 );
 
-FFD # ( 1 ) IDEX10	//Lineas de seleccion de mux 1 y 2 
+//Registro de pipe ID/EX para señales de control
+FFD # ( 23 ) IDEX
 (
 	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	.D({wSelM1ID}),
-	.Q({wSelM1EX})
+	.D({wSelM1ID,wSelM2ID,wWrEnableID,wMemDirID,wOpCodeID,wSelAID,wSelBID}),
+	.Q({wSelM1EX,wSelM2EX,wWrEnableEX,wMemDirEX,wOpCodeEX,wSelAEX,wSelBEX})
 );
 
-FFD # ( 1 ) IDEX20	//Lineas de seleccion de mux 1 y 2 
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wSelM2ID}),
-	.Q({wSelM2EX})
-);
-
-
-FFD # ( 3 ) IDEX2 // Write enable de la memoria, Jump enable y branch enable
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wWrEnableID,wJmpEnableID,wBranchEnableID}),
-	.Q({wWrEnableEX,wJmpEnableEX,wBranchEnableEX})
-);
-
-FFD # ( 26 ) IDEX3 // Direcciones de salto incondicional y condicional
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wJmpDirID,wBranchDirID,wMemDirID}),
-	.Q({wJmpDirEX,wBranchDirEX,wMemDirEX})
-);
-
-FFD # ( 6 ) IDEX4 // Direcciones de salto incondicional y condicional
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D(wOpCodeID),
-	.Q(wOpCodeEX)
-);
-
-
+//Mux de seleccion de entradas 1 a la ALU.
 MUX # (8) MX1
 (
 	.Select(wSelM1EX),
@@ -212,7 +158,7 @@ MUX # (8) MX1
 	.Out(wIn1)
 );
 
-
+//Mux de seleccion de entradas 2 a la ALU.
 MUX # (8) MX2
 (
 	.Select(wSelM2EX),
@@ -221,8 +167,8 @@ MUX # (8) MX2
 	.Out(wIn2)
 );
 
-
-alu ALU0 
+//Unidad Logico-Aritmetica.
+ALU ALU0 
 (
 	.opcode(wOpCodeEX),
 	.in1(wIn1),
@@ -230,66 +176,41 @@ alu ALU0
 	.out(wAluEX)
 );
 
-FFD # ( 4 ) IDEX5 
+//-----ME-----//
+//Registro de pipe EX/ME para señales de control.
+FFD # ( 15 ) EXME
 (
 	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	.D({wSelAID,wSelBID}),
-	.Q({wSelAEX,wSelBEX})
+	.D({wMemDirEX,wWrEnableEX,wSelAEX,wSelBEX}),
+	.Q({wMemDirME,wWrEnableME,wSelAME,wSelBME})
 );
 
-//ME
-
-FFD # ( 10 ) EXME0 // Direcciones de salto incondicional y condicional
+//Registro de salida de la ALU. (Mantiene un valor estable en la salida de la ALU).
+FFD # ( 9 ) oALU_ME
 (
 	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	.D({wMemDirEX}),
-	.Q({wMemDirME})
+	.D(wAluEX),
+	.Q(wAluME)
 );
 
-FFD # ( 9 ) EXME1 // Direcciones de salto incondicional y condicional
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wAluEX}),
-	.Q({wAluME})
-);
-
-FFD # ( 1 ) EXME2 // Direcciones de salto incondicional y condicional
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wWritEnableEX}),
-	.Q({wWritEnableME})
-);
-
-RAM_SINGLE_READ_PORT RAM0
+//Memoria de datos. Tambien funciona como el registro de pipe ME/WB para la salida de la memoria
+RAM DM0
 (
 	.Clock(         clk        ),
-	.iWriteEnable(  rWriteEnableME ),
+	.iWriteEnable(  wWrEnableME ),
 	.iAddress( 		wMemDirME ),
 	.iDataIn(       wAluME[7:0]      ),
 	.oDataOut(      wMemWB )
 );
 
-FFD # ( 4 ) EXME3 
-(
-	.Clock(clk),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D({wSelAEX,wSelBEX}),
-	.Q({wSelAME,wSelBME})
-);
 
-
-//WB
-
-FFD # ( 9 ) MEMWB0 // Direcciones de salto incondicional y condicional
+//-----WB-----//
+//Registro de pipe ME/WB para la salida de la ALU
+FFD # ( 9 ) oALU_WB
 (
 	.Clock(clk),
 	.Reset(Reset),
@@ -298,7 +219,8 @@ FFD # ( 9 ) MEMWB0 // Direcciones de salto incondicional y condicional
 	.Q({wAluWB})
 );
 
-FFD # ( 4 ) MEWB1 
+//Registro de pipe ME/WB para señales de control
+FFD # ( 4 ) MEWB1
 (
 	.Clock(clk),
 	.Reset(Reset),
