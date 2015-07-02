@@ -31,7 +31,7 @@ endmodule
 
 //------------------------------------------------//
 
-module FFD_POSEDGE_SYNCRONOUS_RESET # ( parameter SIZE=8 )
+module FFD # ( parameter SIZE=8 )
 (
 	input wire				Clock,
 	input wire				Reset,
@@ -44,6 +44,29 @@ always @ (posedge Clock)
 begin
 	if ( Reset )
 		Q <= 0;
+	else
+	begin	
+		if (Enable) 
+			Q <= D; 
+	end	
+ 
+end
+endmodule
+
+module FFD_PL # ( parameter SIZE=8 )
+(
+	input wire				Clock,
+	input wire				Reset,
+	input wire				Enable,
+	input wire [SIZE-1:0]	D,
+	input wire [SIZE-1:0]	ResetD,
+	output reg [SIZE-1:0]	Q
+);
+	
+always @ (posedge Clock) 
+begin
+	if ( Reset )
+		Q <= ResetD;
 	else
 	begin	
 		if (Enable) 
@@ -95,13 +118,13 @@ endmodule
 
 module RPG # (parameter DATA_WIDTH= 8)			//Acomulador
 (
-	input wire 			Clock,
-	input wire[1:0]			Select,
+	input wire 					Clock,
+	input wire[1:0]				Select,
 	input wire[DATA_WIDTH-1:0]	iInm,
 	input wire[DATA_WIDTH:0]	iAlu,			//Esta entrada incluye el acarreo
 	input wire[DATA_WIDTH-1:0]	iMem,
 	output reg[DATA_WIDTH-1:0]	oRPG,
-	output reg[2:0]			oFlags
+	output reg[2:0]				oFlags
 );
 
 always @(posedge Clock)
@@ -109,25 +132,27 @@ begin
 	case(Select)
 		0: 
 		begin
+			oRPG 	<= oRPG;
+			oFlags 	<= oFlags;
+		end
+		
+		1: 
+		begin
 			oRPG 	<= iInm;
 			oFlags 	<= {~&iInm,1'b0,iInm[DATA_WIDTH-1]};
 		end
-		1: 
+		2: 
 		begin
 			oRPG 	<= iAlu[DATA_WIDTH-1:0];
 			oFlags 	<= {~&iAlu[DATA_WIDTH:0],iAlu[DATA_WIDTH],iAlu[DATA_WIDTH-1]};
 		end
 
-		2: 
+		3: 
 		begin
 			oRPG 	<= iMem;
 			oFlags 	<= {~&iMem,1'b0,iMem[DATA_WIDTH-1]};
 		end
-		3: 
-		begin
-			oRPG 	<= oRPG;
-			oFlags 	<= oFlags;
-		end
+
 	endcase
 end
 endmodule

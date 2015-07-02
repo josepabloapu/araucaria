@@ -13,16 +13,18 @@ module testbench;
 //Outputs
 
 reg Clock;
+reg Cocas;
 reg Reset;
 
 always 
-begin
-	#5 Clock = ! Clock;
-end
+	begin
+		#5 Clock = ! Clock;
+	end
 
-uP araucaria
+
+uP arau
 (
-	.Clock(Clock),
+	.clk(Clock),
 	.Reset(Reset)
 );
 

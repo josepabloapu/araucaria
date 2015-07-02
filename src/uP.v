@@ -6,9 +6,10 @@
 
 module uP
 (
-input wire Clock,
+input wire clk,
 input wire Reset
 );
+
 //Wires
 		//IF
 		wire [9:0] 	wPC;
@@ -65,17 +66,17 @@ input wire Reset
 		
 		wire [8:0] wAluWB;
 		wire [7:0] wMemWB;
-		wire [1:0] 	wSelAWB;
-		wire [1:0]	wSelBWB;		
+		wire [1:0] wSelAWB;
+		wire [1:0] wSelBWB;		
 		
 
 //IF
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 10 ) PC 
+FFD # ( 10 ) PC 
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	//~ .D(wPC_New),
+		//~ .D(wPC_New),
 	.D(wPC_Next),
 	.Q(wPC)
 );
@@ -90,22 +91,14 @@ assign  wPC_Next = wPC +1;
 	//~ .Out(wPC_New)
 //~ );
 
-ROM	ROM0
-(
-	.clk(Clock),
-	.pc(wPC),
-	.instr(wInstIF)
-);
 
 //ID
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 16 ) IFID0 
+ROM	ROM0
 (
-	.Clock(Clock),
-	.Reset(Reset),
-	.Enable(1'b1),
-	.D(wInstIF),
-	.Q(wInstID)
+	.Clock(clk),
+	.Ip(wPC),
+	.Instr(wInstIF)
 );
 
 
@@ -135,7 +128,7 @@ decodec ID0
 
 RPG # (8) A
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Select(wSelAWB),
 	.iInm(wAluWB[7:0]),
 	.iAlu(wAluWB),
@@ -146,7 +139,7 @@ RPG # (8) A
 
 RPG # (8) B
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Select(wSelBWB),
 	.iInm(wAluWB[7:0]),
 	.iAlu(wAluWB),
@@ -155,46 +148,55 @@ RPG # (8) B
 	.oFlags(wFlagB)
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 8 ) IDEX0	//Valor inmediato
+FFD # ( 8 ) IDEX0	//Valor inmediato
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D(wInmID),
 	.Q(wInmEX)
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 2 ) IDEX1	//Lineas de seleccion de mux 1 y 2 
+FFD # ( 1 ) IDEX10	//Lineas de seleccion de mux 1 y 2 
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	.D({wSelM1ID,wSelM2ID}),
-	.Q({wSelM1EX,wSelM2EX})
+	.D({wSelM1ID}),
+	.Q({wSelM1EX})
+);
+
+FFD # ( 1 ) IDEX20	//Lineas de seleccion de mux 1 y 2 
+(
+	.Clock(clk),
+	.Reset(Reset),
+	.Enable(1'b1),
+	.D({wSelM2ID}),
+	.Q({wSelM2EX})
 );
 
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 3 ) IDEX2 // Write enable de la memoria, Jump enable y branch enable
+FFD # ( 3 ) IDEX2 // Write enable de la memoria, Jump enable y branch enable
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wWrEnableID,wJmpEnableID,wBranchEnableID}),
 	.Q({wWrEnableEX,wJmpEnableEX,wBranchEnableEX})
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 26 ) IDEX3 // Direcciones de salto incondicional y condicional
+FFD # ( 26 ) IDEX3 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wJmpDirID,wBranchDirID,wMemDirID}),
 	.Q({wJmpDirEX,wBranchDirEX,wMemDirEX})
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 6 ) IDEX4 // Direcciones de salto incondicional y condicional
+FFD # ( 6 ) IDEX4 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D(wOpCodeID),
@@ -228,9 +230,9 @@ alu ALU0
 	.out(wAluEX)
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 4 ) IDEX5 
+FFD # ( 4 ) IDEX5 
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wSelAID,wSelBID}),
@@ -239,27 +241,27 @@ FFD_POSEDGE_SYNCRONOUS_RESET # ( 4 ) IDEX5
 
 //ME
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 10 ) EXME0 // Direcciones de salto incondicional y condicional
+FFD # ( 10 ) EXME0 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wMemDirEX}),
 	.Q({wMemDirME})
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 9 ) EXME1 // Direcciones de salto incondicional y condicional
+FFD # ( 9 ) EXME1 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wAluEX}),
 	.Q({wAluME})
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 1 ) EXME2 // Direcciones de salto incondicional y condicional
+FFD # ( 1 ) EXME2 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wWritEnableEX}),
@@ -268,16 +270,16 @@ FFD_POSEDGE_SYNCRONOUS_RESET # ( 1 ) EXME2 // Direcciones de salto incondicional
 
 RAM_SINGLE_READ_PORT RAM0
 (
-	.Clock(         Clock        ),
-	.iWriteEnable(  rWriteEnable ),
+	.Clock(         clk        ),
+	.iWriteEnable(  rWriteEnableME ),
 	.iAddress( 		wMemDirME ),
 	.iDataIn(       wAluME[7:0]      ),
 	.oDataOut(      wMemWB )
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 4 ) EXME3 
+FFD # ( 4 ) EXME3 
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wSelAEX,wSelBEX}),
@@ -287,18 +289,18 @@ FFD_POSEDGE_SYNCRONOUS_RESET # ( 4 ) EXME3
 
 //WB
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 9 ) MEMWB0 // Direcciones de salto incondicional y condicional
+FFD # ( 9 ) MEMWB0 // Direcciones de salto incondicional y condicional
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wAluME}),
 	.Q({wAluWB})
 );
 
-FFD_POSEDGE_SYNCRONOUS_RESET # ( 4 ) MEWB1 
+FFD # ( 4 ) MEWB1 
 (
-	.Clock(Clock),
+	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
 	.D({wSelAME,wSelBME}),
