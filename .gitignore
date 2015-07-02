@@ -51,3 +51,7 @@
 #######################
 # backup files
 *~
+
+# IVerilog generated files #
+############################
+*.vcd

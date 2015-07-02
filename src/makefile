@@ -1,4 +1,4 @@
-PROG = waka
+PROG = tb
 
 all: compile
 
