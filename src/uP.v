@@ -239,6 +239,7 @@ FFD # ( 4 ) IDEX5
 	.Q({wSelAEX,wSelBEX})
 );
 
+
 //ME
 
 FFD # ( 10 ) EXME0 // Direcciones de salto incondicional y condicional
@@ -264,14 +265,14 @@ FFD # ( 1 ) EXME2 // Direcciones de salto incondicional y condicional
 	.Clock(clk),
 	.Reset(Reset),
 	.Enable(1'b1),
-	.D({wWritEnableEX}),
-	.Q({wWritEnableME})
+	.D({wWrEnableEX}),
+	.Q({wWrEnableME})
 );
 
-RAM_SINGLE_READ_PORT RAM0
+RAM RAM0
 (
 	.Clock(         clk        ),
-	.iWriteEnable(  rWriteEnableME ),
+	.iWriteEnable(  wWrEnableME ),
 	.iAddress( 		wMemDirME ),
 	.iDataIn(       wAluME[7:0]      ),
 	.oDataOut(      wMemWB )

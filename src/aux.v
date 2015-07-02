@@ -92,7 +92,7 @@ endmodule
 
 //------------------------------------------------//
 
-module RAM_SINGLE_READ_PORT # ( parameter DATA_WIDTH= 8, parameter ADDR_WIDTH=10, parameter MEM_SIZE=10 )
+module RAM # ( parameter DATA_WIDTH= 8, parameter ADDR_WIDTH=10, parameter MEM_SIZE=1024 )
 (
 	input wire					Clock,
 	input wire					iWriteEnable,
