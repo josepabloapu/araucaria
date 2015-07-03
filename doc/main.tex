@@ -121,21 +121,23 @@ Con la tabla de instrucciones, que se pueden observar en el cuadro \ref{tablaDec
 
 \section{Diseño}
 
-El que tenga un pipeline, permite estar ejecutando una intrucción, y que en ese momento pueda recibir otra intrucción. Sabemos que las intrucciones por lo general, necesitan de 2 a 3 ciclos de reloj. La idea es que al ejecutarse el segundo ciclo de reloj, el procesador pueda recibir la siguiente instrucción, sin que la primera instrucción finalice. Para lograr esto hay que tener mucho cuidado con el cableado de los módulos.
+El que tenga un pipeline, permite estar ejecutando una intrucción, y que en ese momento pueda recibir otra intrucción. Sabemos que las intrucciones por lo general, necesitan de 2 a 3 ciclos de reloj. La idea es que al ejecutarse el segundo ciclo de reloj, el procesador pueda recibir la siguiente instrucción, sin que la primera instrucción finalice. Para lograr esto hay que definir muy bien cada bloque, así como tener mucho cuidado con las propagación de las señales.
 
-\subsection{Unidad de control}
+\subsection{Decodificador}
 El microprocesador tiene una unidad de control, que es este caso se llama decodificador. Este permite administrar las entradas que recibe la alu, los regirstros y además maneja los saltos del microprocesador.
 
-\subsubsection{Estados}
+Los principales componentes son:
 
+\subsection{ALU}
+Es el encargado se hacer operacioneces aritméticas y lógicas, además nos ayuda a pasar datos a la RAM. Es un circuito combinacional por lo que no ocupa de reloj.
 
+\subsection{Registros}
+Además de funcionar como un flip-flop. Este tiene como comportamiento predeterminado mantener su salida anterior. Pero esta puede ser cambiada por el decodificador.
 
-\subsubsection{Entradas}
+\subsection{RAM y ROM}
+Ambas son memorias, nada más que la primera es solo lectura y la segundo si se puede escribir. Estan separadas, y la ROM es la que tiene el pograma ensamblado y la RAM es con el cual el microprocesador guarda y lee datos para hacer sus distintas operaciones.
 
-\subsubsection{Salidas}
-
-\pagebreak
-\subsubsection{Definición de la máquina}
+\section{Definición de la máquina}
 
 \subsection{Multiplexores}
 
@@ -165,8 +167,6 @@ selX   & wX    \\ \hline
 \end{tabular}
 \end{table}
 
-
-\pagebreak
 \subsection{Decodificador}
 
 \begin{itemize}
@@ -239,6 +239,7 @@ Codificación& Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
 
 \subsection{Memoria de instrucciones}
 
+\pagebreak
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementación}
 
