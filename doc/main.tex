@@ -234,10 +234,26 @@ Codificación& Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
 \label{tablaDecodificacion}
 \end{table}
 
-
 \subsection{Memoria de datos}
 
+\begin{itemize}
+\item \textbf{Entradas:}\\
+wMemDirME, wALUME
+\item \textbf{Salidas:}\\
+wMemWB
+\end{itemize}
+
+Esta memoria presenta valores aleatorios al inicio del programa por lo que si se quiere declarar alguna posición de la memoria se deberá hacer mediante el código a procesar, consta de un vector de registros que según sea la operación (escritura o lectura) guardará el valor de entrada en el registro o pondrá el dato de la posición desindexada en el cable de out.
+
 \subsection{Memoria de instrucciones}
+\begin{itemize}
+\item \textbf{Entradas:}\\
+wPC
+\item \textbf{Salidas:}\\
+instID
+\end{itemize}
+
+La memoria está compuesta con una vector de registros que es instanciada con la función readmemb que toma los datos de un archivo externo y los introduce en caracter binario al vector de registro,dependiendo de la entrada wPC se tendrá en la salida la posición en el vector correspondiente a la línea de del siguiente código a procesar.
 
 \pagebreak
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
