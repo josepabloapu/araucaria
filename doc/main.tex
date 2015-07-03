@@ -95,13 +95,39 @@ En este documento se describe detalladamente el diseño, la implementación de u
 
 \subsection{Desarrollo del proyecto}
 
+Se pretende describir un microprocesador con pipeline de cinco etapas. Las características principales son:
+
+\begin{enumerate}
+\item No tendrá direccionamiento indirecto.
+\item Tendrá dos registros de uso general, llamados A y B.
+\item No se harán operaciones de A con Memoria, ni de B con Memoria, únicamente
+entre A, B y constantes.
+\item La memoria de datos estará separada de la de instrucciones.
+\item Cada posición de la memoria de datos guardará un byte.
+\item Cada posición de la memoria de instrucciones guardará dos bytes.
+\item La memoria de datos tendrá 1024 posiciones (10 bits para indexarla).
+\item La memoria de instrucciones tendrá 1024 posiciones (10 bits para indexarla).
+\item No habrá subrutinas.
+\item No se implementará atención a interrupciones.
+\item No se implementará una pila.
+\item Se supondrán únicamente números sin signo, por lo que no habrá bandera de
+rebase.
+\end{enumerate}
+
 \subsection{Plan de pruebas}
+
+Con la tabla de instrucciones, que se pueden observar en el cuadro \ref{tablaDecodificacion}, se piensa contruir pogramas pequeños, pero característicos, esto para observar el comportamiento del microprocesador.
 
 \section{Diseño}
 
+El que tenga un pipeline, permite estar ejecutando una intrucción, y que en ese momento pueda recibir otra intrucción. Sabemos que las intrucciones por lo general, necesitan de 2 a 3 ciclos de reloj. La idea es que al ejecutarse el segundo ciclo de reloj, el procesador pueda recibir la siguiente instrucción, sin que la primera instrucción finalice. Para lograr esto hay que tener mucho cuidado con el cableado de los módulos.
+
 \subsection{Unidad de control}
+El microprocesador tiene una unidad de control, que es este caso se llama decodificador. Este permite administrar las entradas que recibe la alu, los regirstros y además maneja los saltos del microprocesador.
 
 \subsubsection{Estados}
+
+
 
 \subsubsection{Entradas}
 
@@ -154,7 +180,9 @@ branchDir = instr[0:5] \\
 opCode = instr[10:15]
 \end{itemize}
 
-\begin{table}[h]
+En la tabla \ref{tablaDecodificacion} se observa las salidad de control, que hace el decodificador para manejar los registros y los muxes que van hacia la alu.
+
+\begin{table}
 \centering
 \begin{tabular}{cc|ccccc}
 \multicolumn{7}{c}{Salida según la intrucción} \\ \hline
@@ -201,6 +229,8 @@ Codificación& Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
 100 101 	& NOP			& 00 	& 00    & X     & X     & 0 \\
 
 \end{tabular}
+\caption{Salidas de control, del decodificador}
+\label{tablaDecodificacion}
 \end{table}
 
 
