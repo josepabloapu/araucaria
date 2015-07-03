@@ -268,7 +268,7 @@ def main(argv):
                 jump_address = '1' + jump_address[3:].zfill(6)
                 instruction = instruction + jump_address.zfill(10) + '\n'
             else:
-                jump_address = '0' + jump_address[2:].zfill(6)
+                jump_address = '0' + jump_address[3:].zfill(6)
                 instruction = instruction + jump_address.zfill(10) + '\n'
             out_file.write(instruction)            
         elif(line[0] == 'BBCS'):

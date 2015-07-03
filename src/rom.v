@@ -7,7 +7,7 @@ module ROM
 
 reg [15:0] data [0:1023];
 
-initial $readmemb("../test/sum.arau", data);
+initial $readmemb("../test/test.bin", data);
 
 integer i;
 always @( posedge Clock)
