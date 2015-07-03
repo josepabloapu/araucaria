@@ -30,6 +30,9 @@
 
 \usepackage{tikz}
 \usepackage{gantt}
+\usepackage{listings}
+
+
 
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
@@ -241,20 +244,201 @@ Codificación& Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=1\linewidth]{diagramaBLoques.png}
+\includegraphics[width=1\linewidth]{araucaria_pipeline}
 \caption{Plan de pruebas}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Verificación y plan de pruebas}
 
-Primero se cargo un LDCA y un LDCB. Luego se sumaron con una ADDA y finalmente se guardó en memoria con un STA.
+Asi como se menciona en la introducción para validar el diseño se ejecuto el plan de pruebas. Acontinuacion se listan cada una de las prubas que se realizaron una vez que se comprobó que cada elemento fuincionaba individualmente.
+
+\subsection{Operaciones aritméticas y de carga de constantes}
+Para esta prueba se propuso la creacion de un programa que tomara dos numeros constante, los restara y luego sumara otro. Acontinuacion se muestra el código en lenguaje ensamblador.
+
+\begin{lstlisting}
+		#Programa 1:
+NOP
+LDCA 9A			#Se carga un $9A al acomulador A
+NOP
+NOP
+LDCB 2C			#Se carga un $2C al acomulador B
+NOP
+NOP
+SUBA			#(A) <- (A)-(B)
+NOP
+NOP
+ADDCA 14		#(A) <- (A) + ($14)
+NOP
+NOP
+		###
+\end{lstlisting}
+
+En la figura \ref{i:p1} se muestra el resultado de correr este programa el tiempo suficiente para que todas las instrucciones pasen por las etapas.\\
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=1\linewidth]{planPruebasUno.png}
-\caption{Plan de pruebas}
+\includegraphics[width=1\linewidth]{../test/Prog1.png}
+\caption{Señales de control y datos durante la ejecucion de programa 1.}
+\label{i:p1}
 \end{figure}
+
+Vale la pena prestar atencion a la linea \textbf{wOpCodeID} pues esta dice cual instrucccion se acaba de decodificar, tambien es importante ver a linea \textbf{wAluEX} pues esta muestra la salida de la \textit{ALU}, en este caso los valores inmediatos que se van almacenar, finalmente al detallar las lineas \textbf{wA} y \textbf{wB} se puede ver el resultado de las instrucciones que se estan ejecutando. Adicionalmente aunque no se muestren las demas señales de control se verifico que fueran las correctas, por lo cual podemos comprobar el resultado de la operacion \ref{e:p1}.\\
+
+\begin{align} 
+\label{e:p1}
+(\$9A - \$2C) + \$12 = \$14
+\end{align}
+
+\subsection{Acceso a memoria (lectura y escritura)}
+
+Para probar el funcionamiento de las instrucciones de acceso a memoria basto con guardar el contenido del acomulador en una posicion de memoria y luego cargarlo desde la memoria a otro acomulador. Acontinuacion se muestra el código en lenguaje ensamblador.
+
+\begin{lstlisting}
+		#Programa 2:
+NOP
+LDCA 9A			#Se carga un $9A al acomulador A
+NOP
+NOP
+STA 100			#Se guarda el contenido de A 
+NOP			#en la posicion $100 de la memoria
+NOP
+LDB 100			#Se carga al acomulador B el 
+NOP			#contenido de la posicion $100
+NOP
+		###
+\end{lstlisting}
+
+En la figura \ref{i:p2} se muestran las señales al ejecutar este programa.\\
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=1\linewidth]{../test/Prog2.png}
+\caption{Señales de control y datos durante la ejecucion de programa 2.}
+\label{i:p2}
+\end{figure}
+
+En este caso tambien es importante detallar las lineas \textbf{wA}, \textbf{wB} \textbf{wAluEX} y \textbf{wOpCode}, pero por el objetivo de la prueba se centro el analisis en las lineas \textbf{wWrEnableME} y \textbf{wMemDirME}. Para todos los casos la memoria siempre esta cargando en la salida el contenido de la posicion de memoria que indica wMemDirME pero solo escribe lo que esta su entrada cuando la linea wWrEnable esta en alto. Finalmente se puede comprobar que las instrucciones se ejecutaron bien observando la lina \textbf{wB} al final de la ejecucion.
+
+\subsection{Operaciones lógicas}
+
+En el caso de las operaciones lógicas se hizo un programa que tomara un numero y le quitara los cuatro bits menos significativos y luego desplazara los cuatro bits mas significativos cuatro veces a la derecha.Acontinuacion se muestra el código en lenguaje ensamblador.
+
+\begin{lstlisting}
+			#Programa 3:
+NOP
+LDCA 9A		#Se carga un $9A al acomulador A
+NOP
+NOP
+LDCB F0		#Se carga un $F0 al acomulador B
+NOP
+NOP
+ANDA		#Se hace un AND bit por bit entre los acomuladores
+NOP
+NOP
+ASRA		#Se rota una vez a la derecha el acomulador A
+NOP
+NOP
+ASRA
+NOP
+NOP
+ASRA		#Se rota una vez a la derecha el acomulador A
+NOP
+NOP
+ASRA		#Se rota una vez a la derecha el acomulador A
+NOP
+NOP
+			###
+\end{lstlisting}
+
+En la figura \ref{i:p3} se muestran las señales al ejecutar este programa.\\
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=1\linewidth]{../test/Prog3.png}
+\caption{Señales de control y datos durante la ejecucion de programa 3.}
+\label{i:p3}
+\end{figure}
+
+Aqui solamente vale la pena resaltar el contenido en las lineas \textbf{wOpCodeID} que muestra la instruccion a ejecutar y la linea \textbf{wA} que muestra el resultado del contenido del acomulador despues de ejecutar las intrucciones lógicas. Ademas es posible confirmar el resultado haciendo los calculos a mano \ref{e:p3}.
+
+\begin{align} 
+\label{e:p3}
+\$9A  (AND) \$F0 = \$90 \\
+(\$90) >> 4 = \$09
+\end{align}
+
+
+\subsection{Control de flujo | Saltos incondicionales}
+
+Para los saltos incondicionales solo se tuvo que interrumpir la linea del contador de programa y que siguiera en otro lado, por eso se hizo un programa que cargara un numero al acomulador A y mas adelante lo alterara pero antes de eso se coloco un salto incondicional de modo que si el salto funcionaba el dato no seria alterado. Acontinuacion se muestra el código en lenguaje ensamblador.
+
+\begin{lstlisting}
+		#Programa 4:
+NOP
+LDCA 05			#Se carga al acomulador A un $05
+NOP
+NOP
+JMP J1 :		#Se salta a la posicion indicada por J1
+NOP
+NOP
+LDCA FF			#Se carga al acomulador A un $FF
+NOP			#(este codigo no se ejecuta)
+NOP
+: J1 :			#Etiqueta de Salto 1
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+		###
+\end{lstlisting}
+
+En la figura \ref{i:p4} se muestran las señales al ejecutar este programa.\\
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=1\linewidth]{../test/Prog4.png}
+\caption{Señales de control y datos durante la ejecucion de programa 4.}
+\label{i:p4}
+\end{figure}
+
+Para esta prueba es de mucha importancia observar las lineas \textbf{wPC}, \textbf{wJmpEnableID} y \textbf{wJmpDirID} porque si bien la linea de direccion de salto siempr mustra algun valo solo se salta a este cuando el habilitador esta arriba. Se puede ver facilmente que la instruccion funciona bien al observar el contador de programa en \textbf{wPC}.
+
+\subsection{Control de flujo | Saltos condicionales}
+
+Para los saltos condicionales se hizo un programa que cargara un numero en el acomulador A y otro en el acomulador B. Luego desplazaria hacia la izquierda el numero en A tantas veces como induque el numero en B. Acontinuacion se muestra el código en lenguaje ensamblador.
+
+\begin{lstlisting}
+		#Programa 5:
+NOP
+LDCA 01			#Se carga un 1 en el acomulador A
+NOP
+NOP
+LDCB 3			#Se carga un 3 en el acomulador B
+: J2 :			#Etiquita de Salto 2
+NOP
+NOP
+ASLA			#Se desplaza hacia la izquierda el numero en A
+NOP
+NOP
+SUBCB 1			#Se decrementa el numero en B
+NOP
+NOP
+NOP
+BBNE J2 :		#Si el numero en B no es cero se 
+NOP			#salta a la etiqueta
+NO
+		###
+\end{lstlisting}
+
+Para verificar el funcionamiento de este programa se deben observar las lineas \textbf{wPC}, \textbf{wA}, \textbf{wB} y \textbf{wBranchEnableID} y facilmente se puede observar el resultado que se muestra en la linea wA para verificar el resultado \ref{e:p5}.
+
+\begin{align} 
+\label{e:p5}
+(\$01) >> 3 = \$08
+\end{align}
 
 EN otra prueba.. CHUAN AQUÍ VA UNA SUYA
 \end{document}
