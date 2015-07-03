@@ -550,7 +550,7 @@ begin
 	end
 	`ASLA:
 	begin
-		selA		<= 	2'b00;
+		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b1;
@@ -560,7 +560,7 @@ begin
 	end
 	`ASRA:
 	begin
-		selA		<= 	2'b00;
+		selA		<= 	2'b10;
 		selB		<= 	2'b00;
 		selM1		<= 	1'b0;
 		selM2		<= 	1'b1;

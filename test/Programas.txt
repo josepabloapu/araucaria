@@ -1,0 +1,94 @@
+
+#Programa 1: Operaciones aritmeticas y de carga de constantes
+NOP
+LDCA 9A
+NOP
+NOP
+LDCB 2C
+NOP
+NOP
+SUBA
+NOP
+NOP
+ADDCA 14
+NOP
+NOP
+
+#Programa 2: Escritura y lectura de memoria
+NOP
+LDCA 9A
+NOP
+NOP
+STA 100
+NOP
+NOP
+LDB 100
+NOP
+NOP
+
+#Programa 3: Operaciones Logicas
+NOP
+LDCA 9A
+NOP
+NOP
+LDCB F0
+NOP
+NOP
+STB 100
+NOP
+NOP
+ANDA 100
+NOP
+NOP
+ASRA
+NOP
+NOP
+ASRA
+NOP
+NOP
+ASRA
+NOP
+NOP
+ASRA
+NOP
+NOP
+
+
+#Programa 4: Operaciones de salto incondicional
+NOP
+LDCA 05
+NOP
+NOP
+JMP J1 :
+NOP
+NOP
+LDCA FF
+NOP
+NOP
+: J1 :
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+
+#Programa 5: Operaciones de salto condicional
+NOP
+LDCA 01
+NOP
+NOP
+LDCB 3
+: J2 :
+NOP
+NOP
+ASLA
+NOP
+NOP
+SUBCB 1
+NOP
+NOP
+NOP
+BBNE J2 :
+NOP
+NOP
