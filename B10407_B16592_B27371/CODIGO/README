@@ -1,0 +1,11 @@
+# Procesador con 5 etapas de pipeline
+
+Jose Pablo Apú, B10407
+Marco Torres, B16592
+Chuan Wu, B27371
+
+# Para ensamblar, compilar y ejecutar el programa escrito en test.s escriba <<make compile>>
+
+# Para ver el resultado de la pruebas escriba <<make view>>
+
+#Nota, por defecto el archivo test.s solo contiene el primer programa del plan de pruebas por lo que si se desea ejecutar otro programa diferente se debe editar este archivo y hacer make de nuevo.
