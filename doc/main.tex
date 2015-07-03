@@ -320,6 +320,7 @@ En la figura \ref{i:p2} se muestran las señales al ejecutar este programa.\\
 
 En este caso tambien es importante detallar las lineas \textbf{wA}, \textbf{wB} \textbf{wAluEX} y \textbf{wOpCode}, pero por el objetivo de la prueba se centro el analisis en las lineas \textbf{wWrEnableME} y \textbf{wMemDirME}. Para todos los casos la memoria siempre esta cargando en la salida el contenido de la posicion de memoria que indica wMemDirME pero solo escribe lo que esta su entrada cuando la linea wWrEnable esta en alto. Finalmente se puede comprobar que las instrucciones se ejecutaron bien observando la lina \textbf{wB} al final de la ejecucion.
 
+\clearpage
 \subsection{Operaciones lógicas}
 
 En el caso de las operaciones lógicas se hizo un programa que tomara un numero y le quitara los cuatro bits menos significativos y luego desplazara los cuatro bits mas significativos cuatro veces a la derecha.Acontinuacion se muestra el código en lenguaje ensamblador.
@@ -441,4 +442,21 @@ Para verificar el funcionamiento de este programa se deben observar las lineas \
 \end{align}
 
 EN otra prueba.. CHUAN AQUÍ VA UNA SUYA
+
+\clearpage
+\section{Conclusiones y recomendaciones}
+
+\begin{itemize}
+\item Apezar de que no se exploto al máximo el "pipeline" se logro diseñar e implementar un procesador completamente funcional que ejecutara programas y almacenara los resultados.\\
+
+
+\item Como en el diseño solo se implemento con las señales de control y datos basicas el procesador no puede evitar o reducir "hazards" de ningun tipo, esto por falta de tiempo para implementar esta funcionalidad. A pesar de esto aqui se comenta como se planeo ampliar el diseo para soportar esta funcionalidad.\\
+
+\item Al ejecutar una instrucccion de salto, ya sea condicional o incondicional el contador de programa se incrementa pues aun no se ha decodificado la instruccion, esto causa que se lea la siguiente instruccion despues de la de salto. Para solucionar esto se planeo implementar un modulo que controlara el contenido de los registros de "pipe", de este modo cuando se leyera la siguiente instruccion el modulo reiniciaria el registro de "pipe" IF/ID para convertir la instrucccion leida en un NOP.\\
+
+\item Tambien por la forma en la que se diseño la etapa WB, si se ejecuta una instruccion que lea el acomulador A luego de una que lo escriba el valor leido sera un valor viejo. Para preveer este problema se debe crear un modulo que controle los registros de "pipe" de modo que pueda detener algunas etapas para empezar a introducir burbujas en las etapas que tienen el problema.\\
+
+\item Finalmente vale la pena agregar que aunque puede llegar a ser muy complejo diseñar un procesador, en general si se modulariza de la forma correcta y se verifica cada parte por separado la mayor parte del diseño se vuelve facil de diseñar.
+\end{itemize}
+
 \end{document}
