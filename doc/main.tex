@@ -116,14 +116,6 @@ Se pretende describir un microprocesador con pipeline de cinco etapas. Las carac
 
 Con la tabla de instrucciones, que se pueden observar en el cuadro \ref{tablaDecodificacion}, se piensa contruir pogramas pequeños, pero característicos, esto para observar el comportamiento del microprocesador.
 
-Primero se cargo un LDCA y un LDCB. Luego se sumaron con una ADDA y finalmente se guardó en memoria con un STA.
-
-\begin{figure}[hbtp]
-\centering
-\includegraphics[width=0.5\linewidth]{planPruebasUno.png}
-\caption{Plan de pruebas}
-\end{figure}
-
 \section{Diseño}
 
 El que tenga un pipeline, permite estar ejecutando una intrucción, y que en ese momento pueda recibir otra intrucción. Sabemos que las intrucciones por lo general, necesitan de 2 a 3 ciclos de reloj. La idea es que al ejecutarse el segundo ciclo de reloj, el procesador pueda recibir la siguiente instrucción, sin que la primera instrucción finalice. Para lograr esto hay que tener mucho cuidado con el cableado de los módulos.
@@ -247,7 +239,22 @@ Codificación& Mnemónico	  	& selA & selB & selM1 & selM2 & wrEnable \\ \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementación}
 
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=1\linewidth]{diagramaBLoques.png}
+\caption{Plan de pruebas}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Verificación y plan de pruebas}
 
+Primero se cargo un LDCA y un LDCB. Luego se sumaron con una ADDA y finalmente se guardó en memoria con un STA.
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=1\linewidth]{planPruebasUno.png}
+\caption{Plan de pruebas}
+\end{figure}
+
+EN otra prueba.. CHUAN AQUÍ VA UNA SUYA
 \end{document}
